@@ -1,17 +1,32 @@
 ﻿@page "/"
 
-<p>Hola, @Transformar(nombre)</p>
+@* <p>Hola, @UtilidadesString.Transformar(nombre)</p>
 
 <p>Vamos a sumar 2 + 2 = @(2+2)</p>
 
 <button @onclick=@(() => Console.WriteLine("Me han clickeado!"))>Presióname</button>
 
-<button @onclick=@ManejarClickBoton>Presióname</button>
+<button @onclick=@ManejarClickBoton>Presióname</button> *@
+
+<div>
+    <h3>Película</h3>
+    <p>Título: <b>@WakandaForever.Titulo</b></p>
+    <p>Fecha lanzamiento: <b>@WakandaForever.FechaLanzamiento.ToString("dd MMM yyyy")</b></p>
+</div>
 
 @code{
     string nombre= "Germán";
 
-    string Transformar(string valor) => valor.ToUpper();
+    Pelicula WakandaForever { get { return ObtenerPelicula(); } }
+
+    Pelicula ObtenerPelicula()
+    {
+        return new Pelicula
+            {
+                Titulo = "Wakanda Forever",
+                FechaLanzamiento = new DateTime(2022, 11, 11)
+            };
+    }
 
     void ManejarClickBoton(){
         Console.WriteLine("Me han clickeado!");
