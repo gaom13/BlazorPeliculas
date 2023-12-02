@@ -8,16 +8,40 @@
 
 <button @onclick=@ManejarClickBoton>Presióname</button> *@
 
-<div>
+@* <div>
     <h3>Película</h3>
     <p>Título: <b>@WakandaForever.Titulo</b></p>
     <p>Fecha lanzamiento: <b>@WakandaForever.FechaLanzamiento.ToString("dd MMM yyyy")</b></p>
+</div> *@
+
+<div>
+    <h3>Película</h3>
+    @* No permite enumerar (Indice) *@
+
+    <h4>Ejemplo foreach</h4>
+    @foreach(var pelicula in ObtenerPeliculas())
+    {
+        <div>
+                <p>Título: <b>@pelicula.Titulo</b></p>
+                <p>Fecha lanzamiento: <b>@pelicula.FechaLanzamiento.ToString("dd MMM yyyy")</b></p>
+        </div>
+    }
+
+    <h4>Ejemmplo for</h4>
+    @for (int i = 0; i < Peliculas.Count; i++)
+    {
+        <div>
+            <p>@(i+1)) Título: <b>@Peliculas[i].Titulo</b></p>
+            <p>Fecha lanzamiento: <b>@Peliculas[i].FechaLanzamiento.ToString("dd MMM yyyy")</b></p>
+        </div>
+    }
 </div>
 
 @code{
     string nombre= "Germán";
 
     Pelicula WakandaForever { get { return ObtenerPelicula(); } }
+    List<Pelicula> Peliculas {get { return ObtenerPeliculas(); }}
 
     Pelicula ObtenerPelicula()
     {
@@ -26,6 +50,16 @@
                 Titulo = "Wakanda Forever",
                 FechaLanzamiento = new DateTime(2022, 11, 11)
             };
+    }
+
+    List<Pelicula> ObtenerPeliculas()
+    {
+        return new List<Pelicula>()
+        {
+            new Pelicula{Titulo = "Wakanda Forever",FechaLanzamiento = new DateTime(2022, 11, 11)},
+            new Pelicula{Titulo = "Moana",FechaLanzamiento = new DateTime(2016, 11, 11)},
+            new Pelicula{Titulo = "Inception",FechaLanzamiento = new DateTime(2010, 7, 16)},
+        };
     }
 
     void ManejarClickBoton(){
