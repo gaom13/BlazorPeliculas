@@ -5,7 +5,30 @@
     <ListadoPeliculas Peliculas="ObtenerPeliculas()" />
 </div>
 
-@code{
+<div>
+    <h2>Crear una película</h2>
+    <Ejemplo_Textbox placeholder="pelicula" disabled="true" />
+
+    <Ejemplo_Textbox @attributes="@(new Dictionary<string, object> ()
+                                {
+                                    {"placeholder", "nuevo placeholder"},
+                                    {"disabled", "true"}
+                                })" />
+
+    <Ejemplo_Textbox @attributes="EjemploTextboxParametros" />
+
+    <Ejemplo_Textbox />;
+
+    <Ejemplo_Textbox placeholder="Placeholder Index" />;
+</div>
+
+@code {
+    private Dictionary<string, object> EjemploTextboxParametros = new Dictionary<string, object>()
+                                {
+                                    {"placeholder", "nuevo placeholder 2"},
+                                    {"disabled", "true"}
+                                };
+
     List<Pelicula> ObtenerPeliculas()
     {
         return new List<Pelicula>()
