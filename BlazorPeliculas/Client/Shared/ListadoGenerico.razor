@@ -1,0 +1,47 @@
+﻿@typeparam Titem
+
+@if (Listado is null)
+{
+    @if (Cargando is null)
+    {
+        <p>Cargando las películas</p>
+        <img alt="cargando" src="https://cdn.pixabay.com/animation/2022/07/29/03/42/03-42-11-849_512.gif" />
+    }
+    else
+    {
+        @Cargando
+    }
+}
+else if (Listado.Count == 0)
+{
+    @if (NoHayRegistro is null)
+    {
+        <p>No hay películas para mostrar</p>
+    }
+    else
+    {
+        @NoHayRegistro
+    }
+
+}
+else
+{
+    @foreach (var elemento in Listado)
+    {
+        @HayRegistro(elemento)
+    }
+}
+
+@code {
+    [Parameter]
+    public RenderFragment Cargando { get; set; } = null!;
+
+    [Parameter]
+    public RenderFragment NoHayRegistro { get; set; } = null!;
+
+    [Parameter]
+    public RenderFragment<Titem> HayRegistro { get; set; } = null!;
+
+    [Parameter]
+    public List<Titem> Listado { get; set; } = null!;
+}

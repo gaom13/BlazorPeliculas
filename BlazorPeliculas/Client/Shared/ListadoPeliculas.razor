@@ -1,47 +1,19 @@
-﻿@if (Peliculas is null)
-{
-    @if(Cargando is null)
-    {
-        <p>Cargando las películas</p>
-        <img alt="cargando" src="https://cdn.pixabay.com/animation/2022/07/29/03/42/03-42-11-849_512.gif" />
-    }else{
-        @Cargando
-    }
-}
-else if (Peliculas.Count == 0)
-{
-    @if(NoHayRegistro is null)
-    {
-        <p>No hay películas para mostrar</p>
-    }
-    else
-    {
-        @NoHayRegistro
-    }
-}
-else
-{
-    <input type="checkbox" @bind="MostrarBotones"/>
-    <span>
-        Mostrar botones
-    </span>
+﻿<input type="checkbox" @bind="MostrarBotones" />
+<span>
+    Mostrar botones
+</span>
 
-    @foreach (var pelicula in Peliculas)
-    {
+<ListadoGenerico Listado="Peliculas">
+    <HayRegistro Context="pelicula">
         <PeliculaIndividual Pelicula="pelicula" MostrarBotonos=MostrarBotones EliminarPelicula="EliminarPelicula" />
-    }
-}
+    </HayRegistro>
+</ListadoGenerico>
+
 @code {
 
     [Parameter]
     [EditorRequired]
     public List<Pelicula>? Peliculas { get; set; }
-
-    [Parameter]
-    public RenderFragment Cargando { get; set; } = null!;
-
-    [Parameter]
-    public RenderFragment NoHayRegistro { get; set; } = null!;
 
     bool MostrarBotones = false;
 
