@@ -2,6 +2,14 @@
 @inject ServiciosSingleton singleton
 @inject IRepositorio repositorio
 
+@* Edita el título de la página *@
+<PageTitle>Blazor Películas</PageTitle>
+
+@* Agrega contenido a la cabezera del HTML *@
+<HeadContent>
+    <meta name="description" content="Página para visualizar películas" />
+</HeadContent>
+
 <p>Valor del singleton: @singleton.Valor</p>
 
 <div>
