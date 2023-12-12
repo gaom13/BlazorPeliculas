@@ -1,4 +1,6 @@
-﻿<input type="checkbox" @bind="MostrarBotones" />
+﻿@inject IJSRuntime js
+
+<input type="checkbox" @bind="MostrarBotones" />
 <span>
     Mostrar botones
 </span>
@@ -28,20 +30,26 @@
     protected override void OnAfterRender(bool primeraRenderizacion)
     {
         Console.WriteLine("OnAfterRender: Primera vez: " + primeraRenderizacion);
-    }  
+    }
 
     protected override bool ShouldRender()
     {
         Console.WriteLine("ShouldRender");
         return true;
-    }  
+    }
 
     bool MostrarBotones = false;
 
-    private void EliminarPelicula(Pelicula pelicula)
+    private async Task EliminarPelicula(Pelicula pelicula)
     {
-        Console.WriteLine("Eliminando una película");
-        Peliculas!.Remove(pelicula);
+        var confirmado = await js.Confirm($"¿Desea borrar la pélucla {pelicula.Titulo}");
+
+        if (confirmado)
+        {
+            Console.WriteLine("Eliminando una película");
+            Peliculas!.Remove(pelicula);
+        }
+
     }
 
 }
