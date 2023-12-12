@@ -1,5 +1,6 @@
 ﻿@page "/"
 @inject ServiciosSingleton singleton
+@inject IRepositorio repositorio
 
 <p>Valor del singleton: @singleton.Valor</p>
 
@@ -45,7 +46,7 @@
     public List<Pelicula>? Peliculas {get; set;}
     
     protected override void OnInitialized(){
-        Peliculas = ObtenerPeliculas();
+        Peliculas = repositorio.ObtenerPeliculas();
     }
 
     private Dictionary<string, object> EjemploTextboxParametros = new Dictionary<string, object>()
@@ -53,16 +54,6 @@
                                     {"placeholder", "nuevo placeholder 2"},
                                     {"disabled", "true"}
                                 };
-
-    List<Pelicula> ObtenerPeliculas()
-    {
-        return new List<Pelicula>()
-        {
-            new Pelicula{Titulo = "Wakanda Forever",FechaLanzamiento = new DateTime(2023, 12, 1)},
-            new Pelicula{Titulo = "Moana",FechaLanzamiento = new DateTime(2016, 11, 11)},
-            new Pelicula{Titulo = "Inception",FechaLanzamiento = new DateTime(2010, 7, 16)},
-        };
-    }
 
     private void AgregarPelicula(){
         Peliculas?.Add(new Pelicula {Titulo = "Nuevo", FechaLanzamiento = DateTime.Today});
