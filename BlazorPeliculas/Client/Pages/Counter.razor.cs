@@ -1,3 +1,4 @@
+using BlazorPeliculas.Client.Helpers;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
@@ -9,9 +10,9 @@ namespace BlazorPeliculas.Client.Pages
         [Inject] ServiciosTransient transient { get; set; } = null!;
         [Inject] IJSRuntime js { get; set; } = null!;
         //Recibiendo el parámetro del padre
-        [CascadingParameter(Name = "Color")] protected string Color { get; set; } = null!;
-        [CascadingParameter(Name = "Size")] protected string Size { get; set; } = null!;
-
+        //[CascadingParameter(Name = "Color")] protected string Color { get; set; } = null!;
+        //[CascadingParameter(Name = "Size")] protected string Size { get; set; } = null!;
+        [CascadingParameter] protected AppState appState { get; set; } = null!;
 
         IJSObjectReference? modulo;
 
