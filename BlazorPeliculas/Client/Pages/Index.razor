@@ -10,12 +10,13 @@
     <meta name="description" content="Página para visualizar películas" />
 </HeadContent>
 
+<button @onclick="LimpiarPeliculas">Limpiar películas</button>
+
 <p>Valor del singleton: @singleton.Valor</p>
 
 <div>
     <h3>Película</h3>
-    <ListadoPeliculas Peliculas="Peliculas">
-    </ListadoPeliculas>
+    <ListadoPeliculas @ref="listadoPeliculas" Peliculas="Peliculas" />
 </div>
 
 <button @onclick="AgregarPelicula" class="btn-light">Agregar película</button>
@@ -52,9 +53,19 @@
 @code {
 
     public List<Pelicula>? Peliculas {get; set;}
+
+    //Creando una instacia del componente ListadoPeliculas
+    public ListadoPeliculas? listadoPeliculas;
     
     protected override void OnInitialized(){
         Peliculas = repositorio.ObtenerPeliculas();
+        listadoPeliculas?.LimpiarPeliculas();
+    }
+
+    private void LimpiarPeliculas()
+    {
+        //Aplicando métodos del componente
+        listadoPeliculas?.LimpiarPeliculas();
     }
 
     private Dictionary<string, object> EjemploTextboxParametros = new Dictionary<string, object>()

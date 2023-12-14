@@ -8,6 +8,10 @@ namespace BlazorPeliculas.Client.Pages
         [Inject] ServiciosSingleton singleton { get; set; } = null!;
         [Inject] ServiciosTransient transient { get; set; } = null!;
         [Inject] IJSRuntime js { get; set; } = null!;
+        //Recibiendo el parámetro del padre
+        [CascadingParameter(Name = "Color")] protected string Color { get; set; } = null!;
+        [CascadingParameter(Name = "Size")] protected string Size { get; set; } = null!;
+
 
         IJSObjectReference? modulo;
 
