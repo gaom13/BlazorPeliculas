@@ -3,6 +3,7 @@ using BlazorPeliculas.Client.Repositorios;
 using CurrieTechnologies.Razor.SweetAlert2;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Radzen;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -18,5 +19,6 @@ void ConfigureServices(IServiceCollection services){
     services.AddSingleton<ServiciosSingleton>();
     services.AddTransient<ServiciosTransient>();
     services.AddSweetAlert2();
+    services.AddRadzenComponents();
     services.AddSingleton<IRepositorio, Repositorio>();
 }
