@@ -1,6 +1,7 @@
 using BlazorPeliculas.Client.Helpers;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using CurrieTechnologies.Razor.SweetAlert2;
 
 namespace BlazorPeliculas.Client.Pages
 {
@@ -9,6 +10,7 @@ namespace BlazorPeliculas.Client.Pages
         [Inject] ServiciosSingleton singleton { get; set; } = null!;
         [Inject] ServiciosTransient transient { get; set; } = null!;
         [Inject] IJSRuntime js { get; set; } = null!;
+        [Inject] SweetAlertService swal { get; set; } = null!;
         //Recibiendo el parámetro del padre
         //[CascadingParameter(Name = "Color")] protected string Color { get; set; } = null!;
         //[CascadingParameter(Name = "Size")] protected string Size { get; set; } = null!;
@@ -24,7 +26,7 @@ namespace BlazorPeliculas.Client.Pages
         public async Task IncrementCount()
         {
             modulo = await js.InvokeAsync<IJSObjectReference>("import", "./js/Counter.js");
-            await modulo.InvokeVoidAsync("mostrarAlerta", "Hola Mundo");
+            await swal.FireAsync("Hola Mundo");
 
             currentCount++;
             currentCountStatic = currentCount;
