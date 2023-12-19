@@ -1,4 +1,5 @@
 ﻿@inject IJSRuntime js
+@inject SweetAlertService swal
 
 <input type="checkbox" @bind="MostrarBotones" />
 <span>
@@ -49,7 +50,13 @@
 
     private async Task EliminarPelicula(Pelicula pelicula)
     {
-        var confirmado = await js.Confirm($"¿Desea borrar la pélucla {pelicula.Titulo}");
+        var resultado = await swal.FireAsync(new SweetAlertOptions{
+            Title = "Confirmación",
+            Text = $"¿Desea borrar la pélucla {pelicula.Titulo}?",
+            ShowCancelButton = true
+        });
+
+        var confirmado = !string.IsNullOrEmpty(resultado.Value);
 
         if (confirmado)
         {
