@@ -8,13 +8,15 @@
     <RadzenDayView />
     <RadzenWeekView />
     <RadzenMonthView />
-    <RadzenYearView />
+    @* <RadzenYearView />
+    <RadzenYearPlannerView />
+    <RadzenYearTimelineView /> *@
 </RadzenScheduler>
 
 @* <EventConsole @ref=@console /> *@
 
 @code {
-    RadzenScheduler<Appointment> scheduler;
+    RadzenScheduler<Appointment>? scheduler;
     //EventConsole console;
     Dictionary<DateTime, string> events = new Dictionary<DateTime, string>();
 
@@ -56,7 +58,7 @@
             {
                 appointments.Add(data);
                 // Either call the Reload method or reassign the Data property of the Scheduler
-                await scheduler.Reload();
+                await scheduler!.Reload();
             }
         }
     }
@@ -80,7 +82,7 @@
             args.Data.Text = data.Text;
         }
 
-        await scheduler.Reload();
+        await scheduler!.Reload();
         
     }
 
