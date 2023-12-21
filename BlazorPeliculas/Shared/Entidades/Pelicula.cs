@@ -14,7 +14,7 @@ namespace BlazorPeliculas.Shared.Entidades
         public string TituloCortado { 
             get{
                 if(string.IsNullOrWhiteSpace(Titulo)){
-                    return null;
+                    return "";
                 }
                 return Titulo.Length > 60 ? $"{Titulo.Substring(0, 60)}..." : Titulo;
             }    
