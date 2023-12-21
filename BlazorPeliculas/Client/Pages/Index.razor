@@ -1,80 +1,20 @@
 ﻿@page "/"
-@inject ServiciosSingleton singleton
 @inject IRepositorio repositorio
 
 @* Edita el título de la página *@
 <PageTitle>Blazor Películas</PageTitle>
 
-@* Agrega contenido a la cabezera del HTML *@
-<HeadContent>
-    <meta name="description" content="Página para visualizar películas" />
-</HeadContent>
-
-<button @onclick="LimpiarPeliculas">Limpiar películas</button>
-
-<p>Valor del singleton: @singleton.Valor</p>
-
 <div>
     <h3>Película</h3>
-    <ListadoPeliculas @ref="listadoPeliculas" Peliculas="Peliculas" />
+    <ListadoPeliculas Peliculas="Peliculas" />
 </div>
-
-<button @onclick="AgregarPelicula" class="btn-light">Agregar película</button>
-
-@* <div>
-    <h2>Crear una película</h2>
-    <Ejemplo_Textbox placeholder="pelicula" disabled="true" />
-
-    <Ejemplo_Textbox @attributes="@(new Dictionary<string, object> ()
-                                {
-                                    {"placeholder", "nuevo placeholder"},
-                                    {"disabled", "true"}
-                                })" />
-
-    <Ejemplo_Textbox @attributes="EjemploTextboxParametros" />
-
-    <Ejemplo_Textbox />;
-
-    <Ejemplo_Textbox placeholder="Placeholder Index" />;
-</div>
-
-<div>
-    <BindEvento />
-</div>
-
-<div>
-    <BindGetSetDemo />
-</div>
-
-<div>
-    <BindAfterDemo />
-</div> *@
 
 @code {
 
     public List<Pelicula>? Peliculas {get; set;}
-
-    //Creando una instacia del componente ListadoPeliculas
-    public ListadoPeliculas? listadoPeliculas;
     
     protected override void OnInitialized(){
         Peliculas = repositorio.ObtenerPeliculas();
-        listadoPeliculas?.LimpiarPeliculas();
     }
 
-    private void LimpiarPeliculas()
-    {
-        //Aplicando métodos del componente
-        listadoPeliculas?.LimpiarPeliculas();
-    }
-
-    private Dictionary<string, object> EjemploTextboxParametros = new Dictionary<string, object>()
-                                {
-                                    {"placeholder", "nuevo placeholder 2"},
-                                    {"disabled", "true"}
-                                };
-
-    private void AgregarPelicula(){
-        Peliculas?.Add(new Pelicula {Titulo = "Nuevo", FechaLanzamiento = DateTime.Today});
-    }
 }

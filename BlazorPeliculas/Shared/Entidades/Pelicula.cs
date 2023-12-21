@@ -10,5 +10,14 @@ namespace BlazorPeliculas.Shared.Entidades
     {
         public string? Titulo { get; set; }
         public DateTime FechaLanzamiento { get; set; }
+        public string Poster { get; set; } = null! ;
+        public string TituloCortado { 
+            get{
+                if(string.IsNullOrWhiteSpace(Titulo)){
+                    return null;
+                }
+                return Titulo.Length > 60 ? $"{Titulo.Substring(0, 60)}..." : Titulo;
+            }    
+        }
     }
 }
