@@ -2,12 +2,12 @@
 
 @inject DialogService DialogServices
 
-<RadzenScheduler @ref=@scheduler SlotRender=@OnSlotRender style="height: 768px;" TItem="Appointment" Data=@appointments StartProperty="Start" EndProperty="End"
-    TextProperty="Text" SelectedIndex="2"
+<RadzenScheduler class="custom-border" @ref=@scheduler SlotRender=@OnSlotRender style="height: 768px;" TItem="Appointment" Data=@appointments StartProperty="Start" EndProperty="End"
+    TextProperty="Text" SelectedIndex="2" Locale="es-CO"
     SlotSelect=@OnSlotSelect AppointmentSelect=@OnAppointmentSelect AppointmentRender=@OnAppointmentRender>
-    <RadzenDayView />
-    <RadzenWeekView />
-    <RadzenMonthView />
+    <RadzenDayView Text="Día"/>
+    <RadzenWeekView Text="Semana"/>
+    <RadzenMonthView Text="Mes"/>
     @* <RadzenYearView />
     <RadzenYearPlannerView />
     <RadzenYearTimelineView /> *@
@@ -90,9 +90,12 @@
     {
         // Never call StateHasChanged in AppointmentRender - would lead to infinite loop
 
+/*
         if (args.Data.Text == "Birthday")
         {
             args.Attributes["style"] = "background: red";
         }
+*/
+        args.Attributes["style"] = "background: green";
     }
 }
