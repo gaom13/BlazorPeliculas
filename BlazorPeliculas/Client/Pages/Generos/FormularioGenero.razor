@@ -1,4 +1,8 @@
-<EditForm Model="Genero" OnValidSubmit="OnValidSubmit">
+@inject IJSRuntime js
+
+<NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation"></NavigationLock>
+
+<EditForm EditContext="editContext" OnValidSubmit="OnValidSubmit">
     <DataAnnotationsValidator />
     <div class=" mb-3">
         <label>Nombre</label>
@@ -13,6 +17,13 @@
 </EditForm>
 
 @code {
+    private EditContext editContext = null!;
+
+    protected override void OnInitialized()
+    {
+        editContext = new(Genero);
+    }
+
     [EditorRequired]
     [Parameter]
     public Genero Genero { get; set; } = null!;
@@ -20,5 +31,24 @@
     [EditorRequired]
     [Parameter]
     public EventCallback OnValidSubmit { get; set; }
+
+    public bool formularioPosteadoConExito { get; set;} = false;
+
+    private async Task OnBeforeInternalNavigation(LocationChangingContext context)
+    {
+        var formularioFueEditado = editContext.IsModified();
+
+        if(!formularioFueEditado || formularioPosteadoConExito){
+            return ;
+        }
+
+        var confirmado = await js.Confirm("¿Deseas abandonar la páfina y perder los cambios?");
+
+        if(confirmado){
+            return;
+        }
+
+        context.PreventNavigation();
+    }
 
 }
