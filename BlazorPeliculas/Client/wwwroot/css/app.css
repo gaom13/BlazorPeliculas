@@ -1,5 +1,21 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
+:root {
+    --azul-principal: #005A7E;
+    --verde-principal: #0B750E;
+    --verde-secundario: #34AB1E;
+}
+
+.text-azul-principal {
+    color: var(--azul-principal);
+}
+
+.cuadro-verde-principal {
+    border: 2px solid var(--verde-principal);
+    border-radius: 20px;
+    padding: 10px;
+}
+
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
