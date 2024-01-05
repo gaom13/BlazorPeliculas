@@ -8,7 +8,7 @@
     private FormularioGenero? formularioGenero;
 
     private void Crear(){
-        formularioGenero.formularioPosteadoConExito = true;
+        formularioGenero!.formularioPosteadoConExito = true;
         Console.WriteLine("Ejecutando método Crear");
         Console.WriteLine($"Nombre del género: {Genero.Nombre}");
         navigationManager.NavigateTo("generos");
