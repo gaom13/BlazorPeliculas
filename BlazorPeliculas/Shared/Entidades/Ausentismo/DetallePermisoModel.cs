@@ -14,5 +14,6 @@ namespace BlazorPeliculas.Shared.Entidades.Ausentismo
         public string Justificacion { get; set; }
         public DateTime FechaDesde { get; set; }
         public DateTime FechaHasta { get; set; }
+        public List<DetallePermisoJefeModel> PermisoJefeModel { get; set; }
     }
 }
