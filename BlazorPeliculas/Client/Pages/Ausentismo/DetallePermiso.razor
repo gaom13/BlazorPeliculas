@@ -50,7 +50,21 @@
                         <strong>Aprobado por:</strong>
                     </h2>
                 </div>
+                <div class="col-12">
+                    <RadzenPanel Class="overflow-auto" Style="height: 115px">
+                        @foreach (var data in detallePermisoModel.PermisoJefeModel)
+                        {
+                            <div class="col-12">
+                                <label class="switch">
+                                    <input type="checkbox" class="@data.EstadoNombre" checked="@data.Estado" readonly="@data.Estado" disabled="true">
+                                    <span class="slider round"></span>
+                                </label>
+                                <RadzenLabel class="text-azul-principal" Text="@data.JeapNombre" Style="vertical-align: middle;" />
+                            </div>
+                        }
+                    </RadzenPanel>
                 </div>
+            </div>
 
             <div class="col-12 d-flex justify-content-center mt-3">
                 <RadzenButton class="me-2" Click="Modificar" Text="Modificar" />
@@ -86,18 +100,20 @@
         sweetAlertService = new SweetAlertServiceUtilidad(swal);
 
         detallePermisoModel = new DetallePermisoModel()
-        {
-            Id = 1,
-            Dependencia = "La mejor dependencia (OTI) presente",
-            FechaDesde = DateTime.Now,
-            FechaHasta = DateTime.Now.AddHours(2),
-            Justificacion = "Genius Prueba de justificación OTI OTI OTI OTI",
-            Motivo = "La mejor dependencia (OTI) presente",
-            PermisoJefeModel = new List <DetallePermisoJefeModel>
             {
-                new DetallePermisoJefeModel {JeapNombre = "Jefe Inmediato", CoitColor = "#34AB1E"}
+                Id = 1,
+                Dependencia = "La mejor dependencia (OTI) presente",
+                FechaDesde = DateTime.Now,
+                FechaHasta = DateTime.Now.AddHours(2),
+                Justificacion = "Genius Prueba de justificación OTI OTI OTI OTI",
+                Motivo = "La mejor dependencia (OTI) presente",
+                PermisoJefeModel = new List<DetallePermisoJefeModel>
+            {
+                new DetallePermisoJefeModel {JeapNombre = "Jefe Inmediato", CoitColor = "#34AB1E", Estado = true, EstadoNombre="Aprobado"},
+                new DetallePermisoJefeModel {JeapNombre = "Jefe Div. Serv. Adtivos", CoitColor = "#34AB1E", Estado = true, EstadoNombre="Rechazado"},
+                new DetallePermisoJefeModel {JeapNombre = "...", CoitColor = "#34AB1E"},
             }
-        };
+            };
     }
 
     public async void Modificar()
