@@ -10,6 +10,8 @@ namespace BlazorPeliculas.Shared.Entidades.Ausentismo
     {
         public string JeapNombre { get; set; }
         public string CoitColor { get; set; }
+        public string EstadoNombre { get; set; }
+        public bool Estado { get; set; }
 
     }
 }
