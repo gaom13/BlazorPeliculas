@@ -92,7 +92,11 @@
             FechaDesde = DateTime.Now,
             FechaHasta = DateTime.Now.AddHours(2),
             Justificacion = "Genius Prueba de justificación OTI OTI OTI OTI",
-            Motivo = "La mejor dependencia (OTI) presente"
+            Motivo = "La mejor dependencia (OTI) presente",
+            PermisoJefeModel = new List <DetallePermisoJefeModel>
+            {
+                new DetallePermisoJefeModel {JeapNombre = "Jefe Inmediato", CoitColor = "#34AB1E"}
+            }
         };
     }
 
