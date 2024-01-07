@@ -114,6 +114,13 @@
                 new DetallePermisoJefeModel {JeapNombre = "...", CoitColor = "#34AB1E"},
             }
             };
+
+        var bandera = detallePermisoModel.PermisoJefeModel.Where(
+                x => x.EstadoNombre.Equals("Aprobado") || x.EstadoNombre.Equals("Rechazado")
+            );
+
+        editar = bandera.Count() > 0 ? true : false;
+        StateHasChanged();
     }
 
     public async void Modificar()
