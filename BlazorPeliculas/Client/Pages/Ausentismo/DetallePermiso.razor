@@ -65,12 +65,13 @@
                     </RadzenPanel>
                 </div>
             </div>
-
-            <div class="col-12 d-flex justify-content-center mt-3">
-                <RadzenButton class="me-2" Click="Modificar" Text="Modificar" />
-                <RadzenButton Style="background: red" Click="Eliminar" Text="Eliminar" />
-            </div>
-
+            @if (!editar)
+            {
+                <div class="col-12 d-flex justify-content-center mt-3">
+                    <RadzenButton class="me-2" Click="Modificar" Text="Modificar" />
+                    <RadzenButton Style="background: red" Click="Eliminar" Text="Eliminar" />
+                </div>
+            }
             <div class="col-12 mt-3">
                 <div class="d-flex justify-content-end">
                     <label class="text-azul-principal" for="color-description" style="margin-right: 8px; vertical-align: middle;">Descripción de colores:</label>
