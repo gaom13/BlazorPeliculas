@@ -1,4 +1,6 @@
-﻿@inject SweetAlertService swal
+﻿@using BlazorPeliculas.Shared
+@inject SweetAlertService swal
+@inject HttpClient Http
 
 <div>
     <h2 class="text-azul-principal" style="font-size: 23px">
@@ -22,6 +24,39 @@
                 <RadzenButton class="me-2 fondo-naranja" Click="Modificar" Icon="file_download" />
             </div>
         </div>
+
+        <div class="row">
+            @if (forecasts == null)
+            {
+                <p><em>Loading...</em></p>
+            }
+            else
+            {
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Estado</th>
+                            <th>Descripción</th>
+                            <th>Desde</th>
+                            <th>Hasta</th>
+                            <th>Horas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var forecast in forecasts)
+                        {
+                            <tr>
+                                <td>1</td>
+                                <td>@forecast.Summary</td>
+                                <td>@forecast.Date.ToShortDateString()</td>
+                                <td>@forecast.Date.AddDays(3).ToShortDateString()</td>
+                                <td>@forecast.TemperatureC</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
     </div>
 
 </div>
@@ -30,9 +65,13 @@
     DateTime date = DateTime.Now;
     SweetAlertServiceUtilidad sweetAlertService;
 
-    protected override void OnInitialized()
+    private WeatherForecast[]? forecasts;
+
+    protected override async void OnInitialized()
     {
         sweetAlertService = new SweetAlertServiceUtilidad(swal);
+        forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
+        StateHasChanged();
     }
 
     public async void Modificar()
