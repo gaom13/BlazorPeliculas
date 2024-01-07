@@ -4,6 +4,11 @@
     --azul-principal: #005A7E;
     --verde-principal: #0B750E;
     --verde-secundario: #34AB1E;
+    --naranja-principal: #E47113;
+}
+
+.fondo-naranja {
+    background: #E47113 !important;
 }
 
 .text-azul-principal {
