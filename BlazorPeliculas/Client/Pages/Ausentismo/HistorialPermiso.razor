@@ -1,0 +1,50 @@
+﻿@inject SweetAlertService swal
+
+<div>
+    <h2 class="text-azul-principal" style="font-size: 23px">
+        <strong>Historial</strong>
+    </h2>
+</div>
+
+<div class="cuadro-verde-principal">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-4 p-0">
+                <RadzenLabel class="text-azul-principal" Text="Desde" Component="DatePickerHourFormat" />
+                <RadzenDatePicker Style="width: 170px;" @bind-Value=@date ShowTime="false" HourFormat="12" DateFormat="MM/dd/yyyy" Name="DatePickerHourFormat" />
+            </div>
+            <div class="col-4 p-0">
+                <RadzenLabel class="text-azul-principal" Text="Hasta" Component="DatePickerHourFormat" />
+                <RadzenDatePicker Style="width: 180px;" @bind-Value=@date ShowTime="false" HourFormat="12" DateFormat="MM/dd/yyyy" Name="DatePickerHourFormat" />
+            </div>
+            <div class="col-4 d-flex align-items-center justify-content-start">
+                <RadzenButton class="me-2" Click="Modificar" Icon="refresh" />
+                <RadzenButton class="me-2 fondo-naranja" Click="Modificar" Icon="file_download" />
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@code {
+    DateTime date = DateTime.Now;
+    SweetAlertServiceUtilidad sweetAlertService;
+
+    protected override void OnInitialized()
+    {
+        sweetAlertService = new SweetAlertServiceUtilidad(swal);
+    }
+
+    public async void Modificar()
+    {
+        var confirmado = await sweetAlertService.Confirmacion(
+            "Confirmación",
+            $"¿Deseas modificar el permiso: ?"
+        );
+
+        if (confirmado)
+        {
+            return;
+        }
+    }
+}
