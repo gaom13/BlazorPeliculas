@@ -1,4 +1,5 @@
 ﻿@using BlazorPeliculas.Shared
+@using BlazorPeliculas.Shared.Entidades.Ausentismo
 @inject SweetAlertService swal
 @inject HttpClient Http
 
@@ -13,11 +14,11 @@
         <div class="row">
             <div class="col-4 p-0">
                 <RadzenLabel class="text-azul-principal" Text="Desde" Component="DatePickerHourFormat" />
-                <RadzenDatePicker Style="width: 170px;" @bind-Value=@date ShowTime="false" HourFormat="12" DateFormat="MM/dd/yyyy" Name="DatePickerHourFormat" />
+                <RadzenDatePicker Style="width: 170px;" @bind-Value=@historialPermisoModel.Desde ShowTime="false" HourFormat="12" DateFormat="MM/dd/yyyy" Name="DatePickerHourFormat" />
             </div>
             <div class="col-4 p-0">
                 <RadzenLabel class="text-azul-principal" Text="Hasta" Component="DatePickerHourFormat" />
-                <RadzenDatePicker Style="width: 180px;" @bind-Value=@date ShowTime="false" HourFormat="12" DateFormat="MM/dd/yyyy" Name="DatePickerHourFormat" />
+                <RadzenDatePicker Style="width: 180px;" @bind-Value=@historialPermisoModel.Hasta ShowTime="false" HourFormat="12" DateFormat="MM/dd/yyyy" Name="DatePickerHourFormat" />
             </div>
             <div class="col-4 d-flex align-items-center justify-content-start">
                 <RadzenButton class="me-2" Click="Modificar" Icon="refresh" />
@@ -46,11 +47,11 @@
                         @foreach (var forecast in forecasts)
                         {
                             <tr>
-                                <td>1</td>
-                                <td>@forecast.Summary</td>
-                                <td>@forecast.Date.ToShortDateString()</td>
-                                <td>@forecast.Date.AddDays(3).ToShortDateString()</td>
-                                <td>@forecast.TemperatureC</td>
+                                <td>@forecast.Estado</td>
+                                <td>@forecast.Descripcion</td>
+                                <td>@forecast.Desde</td>
+                                <td>@forecast.Hasta</td>
+                                <td>@forecast.Hora</td>
                             </tr>
                         }
                     </tbody>
@@ -64,13 +65,15 @@
 @code {
     DateTime date = DateTime.Now;
     SweetAlertServiceUtilidad sweetAlertService;
+    HistorialPermisoConsultaModel historialPermisoModel;
 
-    private WeatherForecast[]? forecasts;
+    private HistorialPermisoModel[]? forecasts;
 
     protected override async void OnInitialized()
     {
         sweetAlertService = new SweetAlertServiceUtilidad(swal);
-        forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
+        historialPermisoModel = new HistorialPermisoConsultaModel();
+        forecasts = await Http.GetFromJsonAsync<HistorialPermisoModel[]>("api/Values");
         StateHasChanged();
     }
 
