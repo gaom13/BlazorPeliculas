@@ -2,6 +2,24 @@
 
 <h3>Editar Actores</h3>
 
+<FormularioActores OnValidSubmit="Editar" Actor="Actor"></FormularioActores>
+
 @code{
     [Parameter] public int ActorId { get; set; }
+    Actor Actor = new Actor();
+
+    protected override void OnInitialized()
+    {
+        Actor = new Actor
+            {
+                Id = ActorId,
+                Nombre = "German",
+                FechaNacimiento = DateTime.Today
+            };
+    }
+
+    void Editar()
+    {
+        Console.WriteLine("Editando al actor");
+    }
 }
