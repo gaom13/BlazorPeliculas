@@ -11,16 +11,20 @@
 
 <div class="cuadro-verde-principal">
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-4 p-0">
-                <RadzenLabel class="text-azul-principal" Text="Desde" Component="DatePickerHourFormat" />
-                <RadzenDatePicker Style="width: 170px;" @bind-Value=@historialPermisoModel.Desde ShowTime="false" HourFormat="12" DateFormat="MM/dd/yyyy" Name="DatePickerHourFormat" />
+        <div class="row align-content-center text-center align-items-center">
+            <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0 mb-2 me-2">
+                <div class="col-12">
+                <RadzenLabel class="text-azul-principal" Text="Desde:" Component="DatePickerHourFormat" Style="vertical-align: middle;" />
+                <RadzenDatePicker @bind-Value=@historialPermisoModel.Desde ShowTime="false" HourFormat="12" DateFormat="MM/dd/yyyy" Name="DatePickerHourFormat" />
+                </div>
             </div>
-            <div class="col-4 p-0">
-                <RadzenLabel class="text-azul-principal" Text="Hasta" Component="DatePickerHourFormat" />
-                <RadzenDatePicker Style="width: 180px;" @bind-Value=@historialPermisoModel.Hasta ShowTime="false" HourFormat="12" DateFormat="MM/dd/yyyy" Name="DatePickerHourFormat" />
+            <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0 mb-2">
+                <div class="col-12">
+                <RadzenLabel class="text-azul-principal" Text="Hasta:" Component="DatePickerHourFormat" Style="vertical-align: middle;" />
+                <RadzenDatePicker @bind-Value=@historialPermisoModel.Hasta ShowTime="false" HourFormat="12" DateFormat="MM/dd/yyyy" Name="DatePickerHourFormat" />
+                </div>
             </div>
-            <div class="col-4 d-flex align-items-center justify-content-start">
+            <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 d-flex  align-items-center justify-content-end mb-2">
                 <RadzenButton class="me-2" Click="Modificar" Icon="refresh" />
                 <RadzenButton class="me-2 fondo-naranja" Click="Modificar" Icon="file_download" />
             </div>

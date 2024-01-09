@@ -2,16 +2,19 @@
 
 @inject DialogService DialogServices
 
-<RadzenScheduler class="custom-border" @ref=@scheduler SlotRender=@OnSlotRender style="height: 668px;" TItem="Appointment" Data=@appointments StartProperty="Start" EndProperty="End"
-    TextProperty="Text" SelectedIndex="2" Locale="es-CO"
-    SlotSelect=@OnSlotSelect AppointmentSelect=@OnAppointmentSelect AppointmentRender=@OnAppointmentRender>
-    <RadzenDayView Text="Día"/>
-    <RadzenWeekView Text="Semana"/>
-    <RadzenMonthView Text="Mes"/>
-    @* <RadzenYearView />
-    <RadzenYearPlannerView />
-    <RadzenYearTimelineView /> *@
-</RadzenScheduler>
+<div class="p-2">
+    <RadzenScheduler class="custom-border" @ref=@scheduler SlotRender=@OnSlotRender style="height: 668px;" TItem="Appointment" Data=@appointments StartProperty="Start" EndProperty="End"
+                     TextProperty="Text" SelectedIndex="2" Locale="es-CO"
+                     SlotSelect=@OnSlotSelect AppointmentSelect=@OnAppointmentSelect AppointmentRender=@OnAppointmentRender>
+        <RadzenDayView Text="Día" />
+        <RadzenWeekView Text="Semana" />
+        <RadzenMonthView Text="Mes" />
+        @* <RadzenYearView />
+        <RadzenYearPlannerView />
+        <RadzenYearTimelineView /> *@
+    </RadzenScheduler>
+</div>
+
 
 <div class="container-fluid">
     <div class="row align-items-start">
