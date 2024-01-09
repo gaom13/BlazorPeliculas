@@ -9,15 +9,15 @@
 
 <div class="px-3 mt-4">
     <RadzenPanelMenu Multiple="false">
-        <RadzenPanelMenuItem Text="Home" Path="" Icon="home"></RadzenPanelMenuItem>
-        <RadzenPanelMenuItem Text="Counter" Path="counter" Icon="line_weight"></RadzenPanelMenuItem>
-        <RadzenPanelMenuItem Text="Fetch data" Path="fetchdata" Icon="attach_file"></RadzenPanelMenuItem>
-        <RadzenPanelMenuItem Text="Filtrar Películas" Path="peliculas/buscar" Icon="announcement"></RadzenPanelMenuItem>
+        <RadzenPanelMenuItem Click="ToggleSidebar" Text="Home" Path="" Icon="home"></RadzenPanelMenuItem>
+        <RadzenPanelMenuItem Click="ToggleSidebar" Text="Counter" Path="counter" Icon="line_weight"></RadzenPanelMenuItem>
+        <RadzenPanelMenuItem Click="ToggleSidebar" Text="Fetch data" Path="fetchdata" Icon="attach_file"></RadzenPanelMenuItem>
+        <RadzenPanelMenuItem Click="ToggleSidebar" Text="Filtrar Películas" Path="peliculas/buscar" Icon="announcement"></RadzenPanelMenuItem>
 
-        <RadzenPanelMenuItem Text="Géneros" Path="generos" Icon="account_circle"></RadzenPanelMenuItem>
-        <RadzenPanelMenuItem Text="Actores" Path="actores" Icon="line_weight"></RadzenPanelMenuItem>
-        <RadzenPanelMenuItem Text="Crear Películas" Path="peliculas/crear" Icon="attach_file"></RadzenPanelMenuItem>
-        <RadzenPanelMenuItem Text="Proyecto Ausentismo" Path="calendar" Icon="announcement"></RadzenPanelMenuItem>
+        <RadzenPanelMenuItem Click="ToggleSidebar" Text="Géneros" Path="generos" Icon="account_circle"></RadzenPanelMenuItem>
+        <RadzenPanelMenuItem Click="ToggleSidebar" Text="Actores" Path="actores" Icon="line_weight"></RadzenPanelMenuItem>
+        <RadzenPanelMenuItem Click="ToggleSidebar" Text="Crear Películas" Path="peliculas/crear" Icon="attach_file"></RadzenPanelMenuItem>
+        <RadzenPanelMenuItem Click="ToggleSidebar" Text="Proyecto Ausentismo" Path="calendar" Icon="announcement"></RadzenPanelMenuItem>
     </RadzenPanelMenu>
 </div>
 
@@ -75,4 +75,15 @@
     // {
     //     collapseNavMenu = !collapseNavMenu;
     // }
+    [Parameter]
+    public bool SidebarExpanded { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> SidebarExpandedChanged { get; set; }
+
+    void ToggleSidebar()
+    {
+        // Notifica al padre del cambio en SidebarExpanded
+        SidebarExpandedChanged.InvokeAsync();
+    }
 }

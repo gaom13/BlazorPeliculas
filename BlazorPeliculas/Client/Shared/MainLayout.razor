@@ -10,12 +10,10 @@
         </RadzenStack>
     </RadzenHeader>
     <RadzenSidebar @bind-Expanded="@sidebar1Expanded">
-        <NavMenu />
+        <NavMenu SidebarExpanded="sidebar1Expanded" SidebarExpandedChanged="HandleSidebarExpandedChanged" />
     </RadzenSidebar>
-    <RadzenBody>
-        <div class="content px-4">
-            @Body
-        </div>
+    <RadzenBody Style="padding: 0px;">
+        @Body
     </RadzenBody>
     <RadzenFooter>
         <div class="text-center justify-content-center">
@@ -28,4 +26,9 @@
     bool sidebar1Expanded = true;
 
     string footer = $"Desarrollo por OTI © {DateTime.Today.Year}";
+
+    void HandleSidebarExpandedChanged()
+    {
+        sidebar1Expanded = false;
+    }
 }
