@@ -1,5 +1,14 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
+/* custom-styles.css */
+
+/* Personalizar el fondo del título del DialogService */
+.rz-dialog-title {
+    background-color: #3498db !important; /* Color de fondo azul */
+    color: #fff; /* Color del texto blanco */
+}
+
+
 :root {
     --azul-principal: #005A7E;
     --verde-principal: #0B750E;
