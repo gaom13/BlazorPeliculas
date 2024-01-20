@@ -1,6 +1,13 @@
 @page "/calendar"
+@using BlazorPeliculas.Client.Pages.Ausentismo.Jefe
 
 @inject DialogService DialogServices
+
+<div class=" mt-3 me-3">
+    <div class="d-flex  align-items-center justify-content-end mb-2">
+        <RadzenButton hidden="@isBoss" Style="background: var(--naranja-principal);" Click="RevisarSolicitudes" Icon="article" Text="Revisar Solicitudes" />
+    </div>
+</div>
 
 <div class="p-2">
     <RadzenScheduler class="custom-border" @ref=@scheduler SlotRender=@OnSlotRender style="height: 668px;" TItem="Appointment" Data=@appointments StartProperty="Start" EndProperty="End"
@@ -32,6 +39,7 @@
     RadzenScheduler<Appointment>? scheduler;
     //EventConsole console;
     Dictionary<DateTime, string> events = new Dictionary<DateTime, string>();
+    bool isBoss = false;
 
     IList<Appointment> appointments = new List<Appointment>
     {
@@ -43,6 +51,13 @@
         new Appointment { Start = DateTime.Today.AddHours(14), End = DateTime.Today.AddHours(14).AddMinutes(30), Text = "Dentist appointment" },
         new Appointment { Start = DateTime.Today.AddDays(1), End = DateTime.Today.AddDays(12), Text = "Vacation" },
     };
+
+    private async Task RevisarSolicitudes()
+    {
+        await DialogServices.OpenAsync<RevisarSolicitudes>("<p class='text-azul-principal' style='display: inline'><strong>Solicitudesstrong></p>",
+               new Dictionary<string, object>() { },
+               new DialogOptions() { Width = "700px", Height = "512px", Resizable = true, Draggable = true });
+    }
 
     void OnSlotRender(SchedulerSlotRenderEventArgs args)
     {
@@ -80,12 +95,12 @@
     {
 
         var copy = new Appointment
-        {
-            Start = args.Data.Start,
-            End = args.Data.End,
-            Text = args.Data.Text
-        };
-    
+            {
+                Start = args.Data.Start,
+                End = args.Data.End,
+                Text = args.Data.Text
+            };
+
         var data = await DialogServices.OpenAsync<EditAppointmentPage>("Edit Appointment", new Dictionary<string, object> { { "Appointment", copy } });
         if (data != null)
         {
@@ -96,19 +111,19 @@
         }
 
         await scheduler!.Reload();
-        
+
     }
 
     void OnAppointmentRender(SchedulerAppointmentRenderEventArgs<Appointment> args)
     {
         // Never call StateHasChanged in AppointmentRender - would lead to infinite loop
 
-/*
-        if (args.Data.Text == "Birthday")
-        {
-            args.Attributes["style"] = "background: red";
-        }
-*/
+        /*
+                if (args.Data.Text == "Birthday")
+                {
+                    args.Attributes["style"] = "background: red";
+                }
+        */
         args.Attributes["style"] = "background: green";
     }
 }
