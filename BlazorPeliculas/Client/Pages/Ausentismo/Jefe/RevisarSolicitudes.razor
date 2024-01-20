@@ -1,0 +1,90 @@
+﻿@using BlazorPeliculas.Shared
+@using BlazorPeliculas.Shared.Entidades.Ausentismo
+@inject SweetAlertService swal
+@inject HttpClient Http
+
+<div class="cuadro-verde-principal">
+    <div class="container-fluid">
+        <div class="row align-content-center text-center align-items-center">
+            <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0 mb-2 me-2">
+                <div class="col-12">
+                    <RadzenLabel class="text-azul-principal" Text="Desde:" Component="DatePickerHourFormat" Style="vertical-align: middle;" />
+                    <RadzenDatePicker @bind-Value=@historialPermisoModel.Desde ShowTime="false" HourFormat="12" DateFormat="MM/dd/yyyy" Name="DatePickerHourFormat" />
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0 mb-2">
+                <div class="col-12">
+                    <RadzenLabel class="text-azul-principal" Text="Hasta:" Component="DatePickerHourFormat" Style="vertical-align: middle;" />
+                    <RadzenDatePicker @bind-Value=@historialPermisoModel.Hasta ShowTime="false" HourFormat="12" DateFormat="MM/dd/yyyy" Name="DatePickerHourFormat" />
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 d-flex  align-items-center justify-content-end mb-2">
+                <RadzenButton class="me-2" Click="Modificar" Icon="refresh" />
+                <RadzenButton class="me-2 fondo-naranja" Click="Modificar" Icon="file_download" />
+            </div>
+        </div>
+
+        <div class="row">
+            @if (forecasts == null)
+            {
+                <p><em>Loading...</em></p>
+            }
+            else
+            {
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Estado</th>
+                            <th>Descripción</th>
+                            <th>Desde</th>
+                            <th>Hasta</th>
+                            <th>Horas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var forecast in forecasts)
+                        {
+                            <tr>
+                                <td>@forecast.Estado</td>
+                                <td>@forecast.Descripcion</td>
+                                <td>@forecast.Desde</td>
+                                <td>@forecast.Hasta</td>
+                                <td>@forecast.Hora</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+
+</div>
+
+@code {
+    DateTime date = DateTime.Now;
+    SweetAlertServiceUtilidad sweetAlertService;
+    HistorialPermisoConsultaModel historialPermisoModel;
+
+    private HistorialPermisoModel[]? forecasts;
+
+    protected override async void OnInitialized()
+    {
+        sweetAlertService = new SweetAlertServiceUtilidad(swal);
+        historialPermisoModel = new HistorialPermisoConsultaModel();
+        forecasts = await Http.GetFromJsonAsync<HistorialPermisoModel[]>("api/Values");
+        StateHasChanged();
+    }
+
+    public async void Modificar()
+    {
+        var confirmado = await sweetAlertService.Confirmacion(
+            "Confirmación",
+            $"¿Deseas modificar el permiso: ?"
+        );
+
+        if (confirmado)
+        {
+            return;
+        }
+    }
+}
