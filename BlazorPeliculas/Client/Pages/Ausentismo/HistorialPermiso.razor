@@ -15,18 +15,18 @@
             <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0 mb-2 me-2">
                 <div class="col-12">
                 <RadzenLabel class="text-azul-principal" Text="Desde:" Component="DatePickerHourFormat" Style="vertical-align: middle;" />
-                <RadzenDatePicker @bind-Value=@historialPermisoModel.Desde ShowTime="false" HourFormat="12" DateFormat="MM/dd/yyyy" Name="DatePickerHourFormat" />
+                <RadzenDatePicker Change="EventChange" @bind-Value=@historialPermisoModel.Desde ShowTime="false" HourFormat="12" DateFormat="MM/dd/yyyy" Name="DatePickerHourFormat" />
                 </div>
             </div>
             <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0 mb-2">
                 <div class="col-12">
                 <RadzenLabel class="text-azul-principal" Text="Hasta:" Component="DatePickerHourFormat" Style="vertical-align: middle;" />
-                <RadzenDatePicker @bind-Value=@historialPermisoModel.Hasta ShowTime="false" HourFormat="12" DateFormat="MM/dd/yyyy" Name="DatePickerHourFormat" />
+                <RadzenDatePicker Min="@historialPermisoModel.Desde.AddDays(-1)" @bind-Value=@historialPermisoModel.Hasta ShowTime="false" HourFormat="12" DateFormat="MM/dd/yyyy" Name="DatePickerHourFormat" />
                 </div>
             </div>
             <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 d-flex  align-items-center justify-content-end mb-2">
                 <RadzenButton class="me-2" Click="Modificar" Icon="refresh" />
-                <RadzenButton class="me-2 fondo-naranja" Click="Modificar" Icon="file_download" />
+                <RadzenButton class="fondo-naranja" Click="Modificar" Icon="file_download" />
             </div>
         </div>
 
@@ -92,5 +92,9 @@
         {
             return;
         }
+    }
+
+    void EventChange(){
+        historialPermisoModel.Hasta = historialPermisoModel.Desde > historialPermisoModel.Hasta ? historialPermisoModel.Desde : historialPermisoModel.Hasta;
     }
 }

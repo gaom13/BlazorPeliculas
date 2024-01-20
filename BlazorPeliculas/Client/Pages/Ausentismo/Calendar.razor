@@ -79,8 +79,11 @@
 
         if (args.View.Text != "Year")
         {
-            Appointment data = await DialogServices.OpenAsync<AddAppointmentPage>("Add Appointment",
-                new Dictionary<string, object> { { "Start", args.Start }, { "End", args.End } });
+            Appointment data = await DialogServices.OpenAsync<CrearPermiso>("Nuevo Permiso",
+                new Dictionary<string, object> { { "Start", args.Start }, { "End", args.End } },
+                new DialogOptions() {
+                //Style = "background: blue;"
+            });
 
             if (data != null)
             {
