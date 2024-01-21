@@ -8,91 +8,107 @@
     </h2>
 </div>
 
+
+
 <div class="cuadro-verde-principal">
     <div class="container-fluid p-0">
-        <div class="row">
-            <div class="col-6">
-                <div class="col-12">
-                    <h3 class="text-azul-principal" style="font-size: 18px">Dependencia</h3>
-                    @* <RadzenText TagName="TagName.H3">Dependencia</RadzenText> *@
-                    <RadzenTextBox @bind-Value="@detallePermisoModel.Dependencia" ReadOnly="true" class="w-100" aria-label="Disabled TextBox" />
+        @if (detallePermisoModel is null)
+        {
+            <div>
+                <p>Por favor seleccionar un permiso</p>
+            </div>
+        }
+        else
+        {
+            <div class="row">
+                <div class="col-6">
+                    <div class="col-12">
+                        <h3 class="text-azul-principal" style="font-size: 18px">Dependencia</h3>
+                        @* <RadzenText TagName="TagName.H3">Dependencia</RadzenText> *@
+                        <RadzenTextBox @bind-Value="@detallePermisoModel.Dependencia" ReadOnly="true" class="w-100" aria-label="Disabled TextBox" />
+                    </div>
+                    <div class="col-12">
+                        <h3 class="text-azul-principal" style="font-size: 18px">Motivo</h3>
+                        <RadzenTextBox @bind-Value="@detallePermisoModel.Motivo" ReadOnly="true" class="w-100" aria-label="Disabled TextBox" />
+                    </div>
                 </div>
-                <div class="col-12">
-                    <h3 class="text-azul-principal" style="font-size: 18px">Motivo</h3>
-                    <RadzenTextBox @bind-Value="@detallePermisoModel.Motivo" ReadOnly="true" class="w-100" aria-label="Disabled TextBox" />
+
+                <div class="col-6">
+                    <h3 class="text-azul-principal" style="font-size: 18px">Justificación</h3>
+                    <RadzenTextArea @bind-Value="@detallePermisoModel.Justificacion" ReadOnly="@editar" class="w-100 h-75" aria-label="Disabled TextBox" Placeholder="" />
+                </div>
+
+                <div class="col-6 mt-3">
+                    <div class="col-12">
+                        <h2 class="text-azul-principal" style="font-size: 18px">
+                            <strong>Fecha permiso:</strong>
+                        </h2>
+                    </div>
+                    <div class="col-12">
+                        <RadzenLabel class="text-azul-principal" Text="Desde" Component="DatePickerHourFormat" Style="margin-right: 8px; vertical-align: middle;" />
+                        <RadzenDatePicker ReadOnly="@editar" @bind-Value=@detallePermisoModel.FechaDesde ShowTime="true" HourFormat="12" DateFormat="MM/dd/yyyy h:mm tt" MinutesStep="30" Name="DatePickerHourFormat" />
+                    </div>
+                    <div class="col-12 mt-2">
+                        <RadzenLabel class="text-azul-principal" Text="Hasta" Component="DatePickerHourFormat" Style="margin-right: 12px; vertical-align: middle;" />
+                        <RadzenDatePicker ReadOnly="@editar" @bind-Value=@detallePermisoModel.FechaHasta ShowTime="true" HourFormat="12" DateFormat="MM/dd/yyyy h:mm tt" MinutesStep="30" Name="DatePickerHourFormat" />
+                    </div>
+                </div>
+
+                <div class="col-6 mt-3">
+                    <div class="col-12">
+                        <h2 class="text-azul-principal" style="font-size: 18px">
+                            <strong>Aprobado por:</strong>
+                        </h2>
+                    </div>
+                    <div class="col-12">
+                        <RadzenPanel Class="overflow-auto" Style="height: 115px">
+                            @foreach (var data in detallePermisoModel.PermisoJefeModel)
+                            {
+                                <div class="col-12">
+                                    <label class="switch">
+                                        <input type="checkbox" class="@data.EstadoNombre" checked="@data.Estado" readonly="@data.Estado" disabled="true">
+                                        <span class="slider round"></span>
+                                    </label>
+                                    <RadzenLabel class="text-azul-principal" Text="@data.JeapNombre" Style="vertical-align: middle;" />
+                                </div>
+                            }
+                        </RadzenPanel>
+                    </div>
+                </div>
+                @if (!editar)
+                {
+                    <div class="col-12 d-flex justify-content-center mt-3">
+                        <RadzenButton class="me-2" Click="Modificar" Text="Modificar" />
+                        <RadzenButton Style="background: red" Click="Eliminar" Text="Eliminar" />
+                    </div>
+                }
+                <div class="col-12 mt-3">
+                    <div class="d-flex justify-content-end">
+                        <label class="text-azul-principal" for="color-description" style="margin-right: 8px; vertical-align: middle;">Descripción de colores:</label>
+
+                        <div class="mt-1 me-1" style="height: 15px; width: 20px; background: green; border-radius: 20px;"></div>
+                        <label class="text-azul-principal" for="approved" style="margin-right: 8px; vertical-align: middle;">Aprobado</label>
+
+                        <div class="mt-1 me-1" style="height: 15px; width: 20px; background: red; border-radius: 20px;"></div>
+                        <label class="text-azul-principal" for="rejected" style="margin-right: 8px; vertical-align: middle;">Rechazado</label>
+
+                        <div class="mt-1 me-1" style="height: 15px; width: 20px; background: grey; border-radius: 20px;"></div>
+                        <label class="text-azul-principal" for="pending" style="margin-right: 8px; vertical-align: middle;">Pendiente</label>
+                    </div>
                 </div>
             </div>
 
-            <div class="col-6">
-                <h3 class="text-azul-principal" style="font-size: 18px">Justificación</h3>
-                <RadzenTextArea @bind-Value="@detallePermisoModel.Justificacion" ReadOnly="@editar" class="w-100 h-75" aria-label="Disabled TextBox" Placeholder="" />
-            </div>
-
-            <div class="col-6 mt-3">
-                <div class="col-12">
-                    <h2 class="text-azul-principal" style="font-size: 18px">
-                        <strong>Fecha permiso:</strong>
-                    </h2>
-                </div>
-                <div class="col-12">
-                    <RadzenLabel class="text-azul-principal" Text="Desde" Component="DatePickerHourFormat" Style="margin-right: 8px; vertical-align: middle;" />
-                    <RadzenDatePicker ReadOnly="@editar" @bind-Value=@detallePermisoModel.FechaDesde ShowTime="true" HourFormat="12" DateFormat="MM/dd/yyyy h:mm tt" MinutesStep="30" Name="DatePickerHourFormat" />
-                </div>
-                <div class="col-12 mt-2">
-                    <RadzenLabel class="text-azul-principal" Text="Hasta" Component="DatePickerHourFormat" Style="margin-right: 12px; vertical-align: middle;" />
-                    <RadzenDatePicker ReadOnly="@editar" @bind-Value=@detallePermisoModel.FechaHasta ShowTime="true" HourFormat="12" DateFormat="MM/dd/yyyy h:mm tt" MinutesStep="30" Name="DatePickerHourFormat" />
-                </div>
-            </div>
-
-            <div class="col-6 mt-3">
-                <div class="col-12">
-                    <h2 class="text-azul-principal" style="font-size: 18px">
-                        <strong>Aprobado por:</strong>
-                    </h2>
-                </div>
-                <div class="col-12">
-                    <RadzenPanel Class="overflow-auto" Style="height: 115px">
-                        @foreach (var data in detallePermisoModel.PermisoJefeModel)
-                        {
-                            <div class="col-12">
-                                <label class="switch">
-                                    <input type="checkbox" class="@data.EstadoNombre" checked="@data.Estado" readonly="@data.Estado" disabled="true">
-                                    <span class="slider round"></span>
-                                </label>
-                                <RadzenLabel class="text-azul-principal" Text="@data.JeapNombre" Style="vertical-align: middle;" />
-                            </div>
-                        }
-                    </RadzenPanel>
-                </div>
-            </div>
-            @if (!editar)
-            {
-                <div class="col-12 d-flex justify-content-center mt-3">
-                    <RadzenButton class="me-2" Click="Modificar" Text="Modificar" />
-                    <RadzenButton Style="background: red" Click="Eliminar" Text="Eliminar" />
-                </div>
-            }
-            <div class="col-12 mt-3">
-                <div class="d-flex justify-content-end">
-                    <label class="text-azul-principal" for="color-description" style="margin-right: 8px; vertical-align: middle;">Descripción de colores:</label>
-
-                    <div class="mt-1 me-1" style="height: 15px; width: 20px; background: green; border-radius: 20px;"></div>
-                    <label class="text-azul-principal" for="approved" style="margin-right: 8px; vertical-align: middle;">Aprobado</label>
-
-                    <div class="mt-1 me-1" style="height: 15px; width: 20px; background: red; border-radius: 20px;"></div>
-                    <label class="text-azul-principal" for="rejected" style="margin-right: 8px; vertical-align: middle;">Rechazado</label>
-
-                    <div class="mt-1 me-1" style="height: 15px; width: 20px; background: grey; border-radius: 20px;"></div>
-                    <label class="text-azul-principal" for="pending" style="margin-right: 8px; vertical-align: middle;">Pendiente</label>
-                </div>
-            </div>
-        </div>
+        }
     </div>
 </div>
 
 @code {
     DateTime? value = DateTime.Now;
-    DetallePermisoModel detallePermisoModel;
+
+    [EditorRequired]
+    [Parameter]
+    public DetallePermisoModel detallePermisoModel { get; set; }
+
     SweetAlertServiceUtilidad sweetAlertService;
     bool editar = false;
 
@@ -100,28 +116,15 @@
     {
         sweetAlertService = new SweetAlertServiceUtilidad(swal);
 
-        detallePermisoModel = new DetallePermisoModel()
-            {
-                Id = 1,
-                Dependencia = "La mejor dependencia (OTI) presente",
-                FechaDesde = DateTime.Now,
-                FechaHasta = DateTime.Now.AddHours(2),
-                Justificacion = "Genius Prueba de justificación OTI OTI OTI OTI",
-                Motivo = "La mejor dependencia (OTI) presente",
-                PermisoJefeModel = new List<DetallePermisoJefeModel>
-            {
-                new DetallePermisoJefeModel {JeapNombre = "Jefe Inmediato", CoitColor = "#34AB1E", Estado = true, EstadoNombre="Aprobado"},
-                new DetallePermisoJefeModel {JeapNombre = "Jefe Div. Serv. Adtivos", CoitColor = "#34AB1E", Estado = true, EstadoNombre="Rechazado"},
-                new DetallePermisoJefeModel {JeapNombre = "...", CoitColor = "#34AB1E"},
-            }
-            };
-
-        var bandera = detallePermisoModel.PermisoJefeModel.Where(
+        if(detallePermisoModel is not null)
+        {
+            var bandera = detallePermisoModel.PermisoJefeModel.Where(
                 x => x.EstadoNombre.Equals("Aprobado") || x.EstadoNombre.Equals("Rechazado")
             );
 
-        editar = bandera.Count() > 0 ? true : false;
-        StateHasChanged();
+            editar = bandera.Count() > 0 ? true : false;
+            StateHasChanged();
+        }
     }
 
     public async void Modificar()
