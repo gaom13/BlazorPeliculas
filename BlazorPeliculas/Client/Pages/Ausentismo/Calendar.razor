@@ -1,5 +1,6 @@
 @page "/calendar"
 @using BlazorPeliculas.Client.Pages.Ausentismo.Jefe
+@using BlazorPeliculas.Shared.Entidades.Ausentismo
 
 @inject DialogService DialogServices
 
@@ -26,7 +27,7 @@
 <div class="container-fluid">
     <div class="row align-items-start">
         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-6 mt-2 mb-4 mx-auto">
-            <DetallePermiso></DetallePermiso>
+            <DetallePermiso detallePermisoModel="detallePermisoModel"></DetallePermiso>
         </div>
         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-6 mt-2 mb-4 mx-auto">
             <!-- Contenido del segundo div -->
@@ -39,6 +40,7 @@
     RadzenScheduler<Appointment>? scheduler;
     //EventConsole console;
     Dictionary<DateTime, string> events = new Dictionary<DateTime, string>();
+    DetallePermisoModel detallePermisoModel;
     bool isBoss = false;
 
     IList<Appointment> appointments = new List<Appointment>
@@ -52,9 +54,14 @@
         new Appointment { Start = DateTime.Today.AddDays(1), End = DateTime.Today.AddDays(12), Text = "Vacation" },
     };
 
+    protected override void OnInitialized()
+    {
+        
+    }
+
     private async Task RevisarSolicitudes()
     {
-        await DialogServices.OpenAsync<RevisarSolicitudes>("<p class='text-azul-principal' style='display: inline'><strong>Solicitudesstrong></p>",
+        await DialogServices.OpenAsync<RevisarSolicitudes>("<p class='text-azul-principal' style='display: inline'><strong>Solicitudes</strong></p>",
                new Dictionary<string, object>() { },
                new DialogOptions() { Width = "700px", Height = "512px", Resizable = true, Draggable = true });
     }
@@ -104,14 +111,30 @@
                 Text = args.Data.Text
             };
 
-        var data = await DialogServices.OpenAsync<EditAppointmentPage>("Edit Appointment", new Dictionary<string, object> { { "Appointment", copy } });
-        if (data != null)
-        {
-            // Update the appointment
-            args.Data.Start = data.Start;
-            args.Data.End = data.End;
-            args.Data.Text = data.Text;
-        }
+        // var data = await DialogServices.OpenAsync<EditAppointmentPage>("Edit Appointment", new Dictionary<string, object> { { "Appointment", copy } });
+        // if (data != null)
+        // {
+        //     // Update the appointment
+        //     args.Data.Start = data.Start;
+        //     args.Data.End = data.End;
+        //     args.Data.Text = data.Text;
+        // }
+
+        detallePermisoModel = new DetallePermisoModel()
+            {
+                Id = 1,
+                Dependencia = "La mejor dependencia (OTI) presenteee",
+                FechaDesde = args.Data.Start,
+                FechaHasta = args.Data.End,
+                Justificacion = args.Data.Text,
+                Motivo = "La mejor dependencia (OTI) presente",
+                PermisoJefeModel = new List<DetallePermisoJefeModel>
+            {
+                new DetallePermisoJefeModel {JeapNombre = "Jefe Inmediato", CoitColor = "#34AB1E", Estado = true, EstadoNombre="Aprobado"},
+                new DetallePermisoJefeModel {JeapNombre = "Jefe Div. Serv. Adtivos", CoitColor = "#34AB1E", Estado = true, EstadoNombre="Rechazado"},
+                new DetallePermisoJefeModel {JeapNombre = "...", CoitColor = "#34AB1E"},
+            }
+            };
 
         await scheduler!.Reload();
 
