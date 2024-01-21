@@ -35,7 +35,7 @@
 
                 <div class="col-6">
                     <h3 class="text-azul-principal" style="font-size: 18px">Justificación</h3>
-                    <RadzenTextArea @bind-Value="@detallePermisoModel.Justificacion" ReadOnly="@editar" class="w-100 h-75" aria-label="Disabled TextBox" Placeholder="" />
+                    <RadzenTextArea @bind-Value="@detallePermisoModel.Text" ReadOnly="@editar" class="w-100 h-75" aria-label="Disabled TextBox" Placeholder="" />
                 </div>
 
                 <div class="col-6 mt-3">
@@ -46,11 +46,11 @@
                     </div>
                     <div class="col-12">
                         <RadzenLabel class="text-azul-principal" Text="Desde" Component="DatePickerHourFormat" Style="margin-right: 8px; vertical-align: middle;" />
-                        <RadzenDatePicker ReadOnly="@editar" @bind-Value=@detallePermisoModel.FechaDesde ShowTime="true" HourFormat="12" DateFormat="MM/dd/yyyy h:mm tt" MinutesStep="30" Name="DatePickerHourFormat" />
+                        <RadzenDatePicker ReadOnly="@editar" @bind-Value=@detallePermisoModel.Start ShowTime="true" HourFormat="12" DateFormat="MM/dd/yyyy h:mm tt" MinutesStep="30" Name="DatePickerHourFormat" />
                     </div>
                     <div class="col-12 mt-2">
                         <RadzenLabel class="text-azul-principal" Text="Hasta" Component="DatePickerHourFormat" Style="margin-right: 12px; vertical-align: middle;" />
-                        <RadzenDatePicker ReadOnly="@editar" @bind-Value=@detallePermisoModel.FechaHasta ShowTime="true" HourFormat="12" DateFormat="MM/dd/yyyy h:mm tt" MinutesStep="30" Name="DatePickerHourFormat" />
+                        <RadzenDatePicker ReadOnly="@editar" @bind-Value=@detallePermisoModel.End ShowTime="true" HourFormat="12" DateFormat="MM/dd/yyyy h:mm tt" MinutesStep="30" Name="DatePickerHourFormat" />
                     </div>
                 </div>
 
@@ -107,7 +107,7 @@
 
     [EditorRequired]
     [Parameter]
-    public DetallePermisoModel detallePermisoModel { get; set; }
+    public Appointment detallePermisoModel { get; set; }
 
     SweetAlertServiceUtilidad sweetAlertService;
     bool editar = false;
@@ -117,6 +117,19 @@
         sweetAlertService = new SweetAlertServiceUtilidad(swal);
 
         if(detallePermisoModel is not null)
+        {
+            var bandera = detallePermisoModel.PermisoJefeModel.Where(
+                x => x.EstadoNombre.Equals("Aprobado") || x.EstadoNombre.Equals("Rechazado")
+            );
+
+            editar = bandera.Count() > 0 ? true : false;
+            StateHasChanged();
+        }
+    }
+
+    protected override void OnParametersSet()
+    {
+        if (detallePermisoModel is not null)
         {
             var bandera = detallePermisoModel.PermisoJefeModel.Where(
                 x => x.EstadoNombre.Equals("Aprobado") || x.EstadoNombre.Equals("Rechazado")
