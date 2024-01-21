@@ -1,5 +1,6 @@
 using BlazorPeliculas.Client;
 using BlazorPeliculas.Client.Repositorios;
+using BlazorPeliculas.Client.Repositorios.Ausentismo;
 using CurrieTechnologies.Razor.SweetAlert2;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -20,4 +21,5 @@ void ConfigureServices(IServiceCollection services){
     services.AddSweetAlert2();
     services.AddRadzenComponents();
     services.AddSingleton<IRepositorio, Repositorio>();
+    services.AddSingleton<IRepositorioAusentismo, RepositorioAusentismo>();
 }
