@@ -10,8 +10,8 @@ namespace BlazorPeliculas.Shared.Entidades.Ausentismo
     {
         public string Estado { get; set; }
         public string Descripcion { get; set; }
-        public DateOnly Desde { get; set; } = DateOnly.FromDateTime(DateTime.Now);
-        public DateOnly Hasta { get; set; } = DateOnly.FromDateTime(DateTime.Now);
+        public DateTime Desde { get; set; } = DateTime.Now; //DateOnly.FromDateTime(DateTime.Now);
+        public DateTime Hasta { get; set; } = DateTime.Now;
         public int Hora { get; set; }
     }
 }
