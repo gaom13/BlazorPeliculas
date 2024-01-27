@@ -23,11 +23,11 @@ namespace BlazorPeliculas.Server.Controllers.Ausentismo
             {
                 Estado = Summaries[Random.Shared.Next(Summaries.Length)],
                 Descripcion = $"Descripción {Summaries[Random.Shared.Next(Summaries.Length)]}",
-                Desde = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                Hasta = DateOnly.FromDateTime(DateTime.Now.AddDays(Random.Shared.Next(1, 10))),
+                Desde = DateTime.Now.AddDays(index),
+                Hasta = DateTime.Now.AddDays(Random.Shared.Next(1, 10)),
                 Hora = Random.Shared.Next(1, 10),
             })
-            .ToArray();
+            .OrderBy(x => x.Desde);
         }
     }
 }
