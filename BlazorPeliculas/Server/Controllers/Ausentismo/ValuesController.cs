@@ -19,7 +19,7 @@ namespace BlazorPeliculas.Server.Controllers.Ausentismo
         [HttpGet]
         public IEnumerable<HistorialPermisoModel> Get()
         {
-            return Enumerable.Range(1, 5).Select(index => new HistorialPermisoModel
+            return Enumerable.Range(1, 50).Select(index => new HistorialPermisoModel
             {
                 Estado = Summaries[Random.Shared.Next(Summaries.Length)],
                 Descripcion = $"Descripción {Summaries[Random.Shared.Next(Summaries.Length)]}",
