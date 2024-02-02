@@ -18,6 +18,7 @@ await builder.Build().RunAsync();
 
 void ConfigureServices(IServiceCollection services){
     services.AddScoped<DialogService>();
+    services.AddScoped<NotificationService>();
     services.AddSweetAlert2();
     services.AddRadzenComponents();
     services.AddSingleton<IRepositorio, Repositorio>();
