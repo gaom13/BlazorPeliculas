@@ -9,17 +9,17 @@ namespace BlazorPeliculas.Client.Repositorios
             {
                 new Pelicula{
                     Titulo = "Wakanda Forever",
-                    FechaLanzamiento = new DateTime(2023, 12, 1),
+                    Lanzamiento = new DateTime(2023, 12, 1),
                     Poster = "https://m.media-amazon.com/images/W/MEDIAX_792452-T1/images/I/71cChJTTPaL._AC_SX679_.jpg"
                 },
                 new Pelicula{
                     Titulo = "Moana",
-                    FechaLanzamiento = new DateTime(2016, 11, 11),
+                    Lanzamiento = new DateTime(2016, 11, 11),
                     Poster = "https://m.media-amazon.com/images/W/MEDIAX_792452-T1/images/I/71cChJTTPaL._AC_SX679_.jpg"
                 },
                 new Pelicula{
                     Titulo = "Inception",
-                    FechaLanzamiento = new DateTime(2010, 7, 16),
+                    Lanzamiento = new DateTime(2010, 7, 16),
                     Poster = "https://m.media-amazon.com/images/W/MEDIAX_792452-T1/images/I/71cChJTTPaL._AC_SX679_.jpg"
                 },
             };
