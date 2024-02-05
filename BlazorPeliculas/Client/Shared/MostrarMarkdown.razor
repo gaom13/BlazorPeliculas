@@ -1,0 +1,36 @@
+﻿@using Markdig
+
+@if (string.IsNullOrEmpty(ContenidoHTML))
+{
+    if (PlantillaCarga is not null)
+    {
+        @PlantillaCarga
+    }
+}
+else
+{
+    @((MarkupString)ContenidoHTML)
+}
+
+@code {
+    [Parameter]
+    public string? ContenidoMarkdown { get; set; }
+    [Parameter]
+    public RenderFragment PlantillaCarga { get; set; } = null!;
+    private string? ContenidoHTML;
+
+    protected override void OnParametersSet()
+    {
+        if(ContenidoMarkdown is not null)
+        {
+            try
+            {
+                ContenidoHTML = Markdown.ToHtml(ContenidoMarkdown);
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
